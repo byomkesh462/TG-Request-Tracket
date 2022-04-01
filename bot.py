@@ -372,10 +372,12 @@ async def callBackButton(bot:Update, callback_query:CallbackQuery):
                         contentRequested = originalMsg.split(requestString)[1]
                         requestedBy = originalMsg.removeprefix("Request by ").split('\n\n')[0]
                         messageId = originalMsg.split(' ||')[0]
+                        groupIDPro = groupID.removeprefix(str(-100))
                         mentionUser = f"<a href='tg://user?id={userid}'>{requestedBy}</a>"
                         mentionUserNew = f"<a href='tg://user?id={userid}'>{userfirstname}</a>"
                         originalMsgMod = originalMsg.replace(requestedBy, mentionUser)
                         originalMsgMod = f"<s>{originalMsgMod}</s>"
+                        msg_link_button = InlineKeyboardButton("Go to the Message", f"https://t.me/c/{groupIDPro}/{messageId}") #may occur error sometimes if not supergroups
 
                         newMsg = f"<b>{result}</b>\n\n{originalMsgMod}"
 
@@ -387,6 +389,9 @@ async def callBackButton(bot:Update, callback_query:CallbackQuery):
                                 [
                                     [
                                         button
+                                    ],
+                                    [
+                                        msg_link_button
                                     ]
                                 ]
                             )
