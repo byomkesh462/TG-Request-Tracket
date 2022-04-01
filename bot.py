@@ -247,7 +247,7 @@ async def requestHandler(bot:Update, msg:Message):
             channelID = document[groupID][0]
             fromUser = msg.from_user
             mentionUser = f"<a href='tg://user?id={fromUser.id}'>{fromUser.first_name}</a>"
-            requestText = f"<b>{msg.message_id}||Request by {mentionUser}</b>\n\n{msg.text}"
+            requestText = f"<b>{msg.message_id} || Request by {mentionUser}</b>\n\n{msg.text}"
             originalMSG = msg.text
             findRegexStr = match(requestRegex, originalMSG)
             requestString = findRegexStr.group()
@@ -371,7 +371,7 @@ async def callBackButton(bot:Update, callback_query:CallbackQuery):
                         requestString = findRegexStr.group()
                         contentRequested = originalMsg.split(requestString)[1]
                         requestedBy = originalMsg.removeprefix("Request by ").split('\n\n')[0]
-                        messageId = originalMsg.split('||')[0]
+                        messageId = originalMsg.split(' ||')[0]
                         mentionUser = f"<a href='tg://user?id={userid}'>{requestedBy}</a>"
                         mentionUserNew = f"<a href='tg://user?id={userid}'>{userfirstname}</a>"
                         originalMsgMod = originalMsg.replace(requestedBy, mentionUser)
@@ -393,11 +393,12 @@ async def callBackButton(bot:Update, callback_query:CallbackQuery):
                         )
 
                         # Result of request sent to group
-                        replyText = f"<b>Dear {mentionUserNew} msg id {messageId}!!</b>\n\nYour request for\n<code>{contentRequested}</code>\n <b>{groupResult}</b>\n\nJoin @UllasTV for more updates!"
+                        replyText = f"<b>Dear {mentionUserNew}!!</b>\n\nYour request for\n<code>{contentRequested}</code>\n <b>{groupResult}</b>\n\nJoin @UllasTV for more updates!"
                         await bot.send_message(
                             int(groupID),
                             replyText,
-                            parse_mode = "html"
+                            parse_mode = "html",
+                            reply_to_message_id = messageId
                         )
                     return
     return
