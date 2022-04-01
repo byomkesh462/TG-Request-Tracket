@@ -397,10 +397,6 @@ async def callBackButton(bot:Update, callback_query:CallbackQuery):
                         await bot.send_message(
                             int(groupID),
                             replyText,
-                            parse_mode = "html"
-                        )
-                        await msg.reply_text(
-                            replyText,
                             parse_mode = "html",
                             reply_to_message_id = {messageId}
                         )
