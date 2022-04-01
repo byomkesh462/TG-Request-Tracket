@@ -377,7 +377,7 @@ async def callBackButton(bot:Update, callback_query:CallbackQuery):
                         mentionUserNew = f"<a href='tg://user?id={userid}'>{userfirstname}</a>"
                         originalMsgMod = originalMsg.replace(requestedBy, mentionUser)
                         originalMsgMod = f"<s>{originalMsgMod}</s>"
-                        msg_link_button = InlineKeyboardButton("Go to the Message", f"https://t.me/c/{groupIDPro}/{messageId}") #may occur error sometimes if not supergroups
+                        msg_link_button = InlineKeyboardButton("Go to the Message", url = f"https://t.me/c/{groupIDPro}/{messageId}") #may occur error sometimes if not supergroups
 
                         newMsg = f"<b>{result}</b>\n\n{originalMsgMod}"
 
