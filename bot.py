@@ -393,12 +393,12 @@ async def callBackButton(bot:Update, callback_query:CallbackQuery):
                         )
 
                         # Result of request sent to group
-                        replyText = f"<b>Dear {mentionUserNew}!!</b>\n\nYour request for\n<code>{contentRequested}</code>\n <b>{groupResult}</b>\n\nJoin @UllasTV for more updates!"
+                        replyText = f"<b>Dear {mentionUserNew} of msg id {messageId} !!</b>\n\nYour request for\n<code>{contentRequested}</code>\n <b>{groupResult}</b>\n\nJoin @UllasTV for more updates!"
                         await bot.send_message(
                             int(groupID),
                             replyText,
                             parse_mode = "html",
-                            reply_to_message_id = messageId
+                            reply_to_message_id = int(messageId)
                         )
                     return
     return
