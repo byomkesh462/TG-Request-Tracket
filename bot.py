@@ -365,12 +365,14 @@ async def callBackButton(bot:Update, callback_query:CallbackQuery):
                         for m in msg.entities:
                             if m.type == "text_mention":
                                 userid = m.user.id
+                                userfirstname= m.user.first_name
                         originalMsg = msg.text
                         findRegexStr = search(requestRegex, originalMsg)
                         requestString = findRegexStr.group()
                         contentRequested = originalMsg.split(requestString)[1]
                         requestedBy = originalMsg.removeprefix("Request by ").split('\n\n')[0]
                         mentionUser = f"<a href='tg://user?id={userid}'>{requestedBy}</a>"
+                        mentionUserNew = f"<a href='tg://user?id={userid}'>{userfirstname}</a>"
                         originalMsgMod = originalMsg.replace(requestedBy, mentionUser)
                         originalMsgMod = f"<s>{originalMsgMod}</s>"
 
@@ -390,7 +392,7 @@ async def callBackButton(bot:Update, callback_query:CallbackQuery):
                         )
 
                         # Result of request sent to group
-                        replyText = f"<b>Dear {mentionUser} !!</b>\n\nYour request for\n<code>{contentRequested}</code>\n <b>{groupResult}</b>\n\nJoin @UllasTV for more updates!"
+                        replyText = f"<b>Dear {mentionUserNew} !!</b>\n\nYour request for\n<code>{contentRequested}</code>\n <b>{groupResult}</b>\n\nJoin @UllasTV for more updates!"
                         await bot.send_message(
                             int(groupID),
                             replyText,
