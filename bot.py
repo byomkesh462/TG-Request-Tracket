@@ -247,7 +247,7 @@ async def requestHandler(bot:Update, msg:Message):
             channelID = document[groupID][0]
             fromUser = msg.from_user
             mentionUser = f"<a href='tg://user?id={fromUser.id}'>{fromUser.first_name}</a>"
-            requestText = f"<b>🔰Request by {mentionUser}</b>\n\n{msg.text}"
+            requestText = f"<b>🔰Request by {mentionUser}</b>\n\n{msg.text}\n\nOriginal Msg ID: {msg.message_id}"
             originalMSG = msg.text
             findRegexStr = match(requestRegex, originalMSG)
             requestString = findRegexStr.group()
@@ -371,6 +371,7 @@ async def callBackButton(bot:Update, callback_query:CallbackQuery):
                         requestString = findRegexStr.group()
                         contentRequested = originalMsg.split(requestString)[1]
                         requestedBy = originalMsg.removeprefix("Request by ").split('\n\n')[0]
+                        messageId = originalMsg.removeprefix("Original Msg ID: ")
                         mentionUser = f"<a href='tg://user?id={userid}'>{requestedBy}</a>"
                         mentionUserNew = f"<a href='tg://user?id={userid}'>{userfirstname}</a>"
                         originalMsgMod = originalMsg.replace(requestedBy, mentionUser)
@@ -401,7 +402,7 @@ async def callBackButton(bot:Update, callback_query:CallbackQuery):
                         await msg.reply_text(
                             replyText,
                             parse_mode = "html",
-                            reply_to_message_id = msg.message_id
+                            reply_to_message_id = messageId
                         )
                     return
     return
