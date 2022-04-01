@@ -59,13 +59,13 @@ requestRegex = "#[rR][eE][qQ][uU][eE][sS][tT] "
 async def startHandler(bot:Update, msg:Message):
     botInfo = await bot.get_me()
     await msg.reply_text(
-        "<b>Hi, I am Request Tracker Bot🤖.\nIf you hadn't added me in your Group & Channel then ➕add me now.\n\nHow to Use me?</b>\n\t1. Add me to your Group & CHannel.\n\t2. Make me admin in both Channel & Group.\n\t3. Give permission to Post , Edit & Delete Messages.\n\t4. Now send Group ID & Channel ID in this format <code>/add GroupID ChannelID</code>.\nNow Bot is ready to be used.\n\n<b>😊Join @AJPyroVerse & @AJPyroVerseGroup for getting more awesome 🤖bots like this.</b>",
+        "<b>Hi, I am a Request Tracker Bot🤖.</b>\nIf you havn't added me in your Group & Channel yet then <b>➕ add me</b> now.\n\n<b>How to Use me?</b>\n\t1. Add me in your Group & Log Channel.\n\t2. Make me admin in both Log Channel & Group.\n\t3. Give permission to Post , Edit & Delete Messages.\n\t4. Now send Group ID & Channel ID in this format <code>/add GroupID ChannelID</code>.\nNow Bot is ready to be used.\n\n<b>Bot made by @UllasTV</b>",
         parse_mode = "html",
         reply_markup = InlineKeyboardMarkup(
             [
                 [
                     InlineKeyboardButton(
-                        "➕Add me to your Group.",
+                        "➕ Add me to your Group",
                         url = f"https://telegram.me/{botInfo.username}?startgroup=true"
                     )
                 ]
@@ -79,7 +79,7 @@ async def startHandler(bot:Update, msg:Message):
 async def chatHandler(bot:Update, msg:Message):
     if msg.new_chat_members[0].is_self: # If bot is added
         await msg.reply_text(
-            f"<b>Hey😁, Your Group ID is <code>{msg.chat.id}</code></b>",
+            f"Hey😁, Your Group ID is <code>{msg.chat.id}</code>",
             parse_mode = "html"
         )
     return
@@ -90,13 +90,13 @@ async def forwardedHandler(bot:Update, msg:Message):
     forwardInfo = msg.forward_from_chat
     if forwardInfo.type == "channel":   # If message forwarded from channel
         await msg.reply_text(
-            f"<b>Hey😁, Your Channel ID is <code>{forwardInfo.id}</code>\n\n😊Join @AJPyroVerse & @AJPyroVerseGroup for getting more awesome 🤖bots like this.</b>",
+            f"<b>Hey, Your Channel ID is <code>{forwardInfo.id}</code>\n\nJoin @UllasTV for bengali movies and webseries.</b>",
             parse_mode = "html"
         )
     return
 
 # /add handler to add group id & channel id with database
-@app.on_message(filters.private & filters.command("add"))
+@app.on_message(filters.private & ~filters.edited & filters.command("add"))
 async def groupChannelIDHandler(bot:Update, msg:Message):
     message = msg.text.split(" ")
     if len(message) == 3:   # If command is valid
@@ -128,7 +128,7 @@ async def groupChannelIDHandler(bot:Update, msg:Message):
                     else:
                         if document[record][0] == channelID:    #If channel id found in database
                             await msg.reply_text(
-                                "<b>Your Channel ID already Added.</b>",
+                                "<b>Your Channel ID already Added ✅</b>",
                                 parse_mode = "html"
                             )
                             break
@@ -137,18 +137,18 @@ async def groupChannelIDHandler(bot:Update, msg:Message):
                     botSelfGroup = await bot.get_chat_member(int(groupID), 'me')
                 except (PeerIdInvalid, ValueError):   # If given group id is invalid
                     await msg.reply_text(
-                        "<b>😒Group ID is wrong.\n\n😊Join @AJPyroVerse & @AJPyroVerseGroup for getting more awesome 🤖bots like this.</b>",
+                        "<b>😒Group ID is wrong.</b>",
                         parse_mode = "html"
                     )
                 except UserNotParticipant:  # If bot is not in group
                     await msg.reply_text(
-                        "<b>😁Add me in group and make me admin, then use /add.\n\n😊Join @AJPyroVerse & @AJPyroVerseGroup for getting more awesome 🤖bots like this.</b>",
+                        "<b>😁Add me in group and make me admin, then use /add command.</b>",
                         parse_mode = "html"
                     )
                 else:
                     if botSelfGroup.status != "administrator":  # If bot is not admin in group
                         await msg.reply_text(
-                            "<b>🥲Make me admin in Group, Then add use /add.\n\n😊Join @AJPyroVerse & @AJPyroVerseGroup for getting more awesome 🤖bots like this.</b>",
+                            "<b>🥲You have not made me admin in your Group yet, Do it first.</b>",
                             parse_mode = "html"
                         )
                     else:   # If bot is admin in group
@@ -161,7 +161,7 @@ async def groupChannelIDHandler(bot:Update, msg:Message):
                             )
                         except (ChatIdInvalid, ChannelInvalid): # If given channel id is invalid
                             await msg.reply_text(
-                                "<b>😒Channel ID is wrong.\n\n😊Join @AJPyroVerse & @AJPyroVerseGroup for getting more awesome 🤖bots like this.</b>",
+                                "<b>😒Channel ID is wrong.</b>",
                                 parse_mode = "html"
                             )
                         else:
@@ -177,18 +177,18 @@ async def groupChannelIDHandler(bot:Update, msg:Message):
                                     }
                                 )
                                 await msg.reply_text(
-                                    "<b>Your Group and Channel has now been added SuccessFully🥳.\n\n😊Join @AJPyroVerse & @AJPyroVerseGroup for getting more awesome 🤖bots like this.</b>",
+                                    "<b>Your Group and Channel has now been added SuccessFully🥳</b>",
                                     parse_mode = "html"
                                 )
     else:   # If command is invalid
         await msg.reply_text(
-            "<b>Invalid Format😒\nSend Group ID & Channel ID in this format <code>/add GroupID ChannelID</code>.\n\n😊Join @AJPyroVerse & @AJPyroVerseGroup for getting more awesome 🤖bots like this.</b>",
+            "<b>Invalid Format😒</b>\nSend Group ID & Channel ID in this format 👇\n<code>/add GroupID ChannelID</code>",
             parse_mode = "html"
         )
     return
 
 # /remove handler to remove group id & channel id from database
-@app.on_message(filters.private & filters.command("remove"))
+@app.on_message(filters.private & ~filters.edited & filters.command("remove"))
 async def channelgroupRemover(bot:Update, msg:Message):
     message = msg.text.split(" ")
     if len(message) == 2:   # If command is valid
@@ -197,7 +197,7 @@ async def channelgroupRemover(bot:Update, msg:Message):
             int(groupID)
         except ValueError:  # If group id not integer type
             await msg.reply_text(
-                "<b>Group ID should be integer type😒.</b>",
+                "<b>Group ID</b> should be integer type😒.",
                 parse_mode = "html"
             )
         else:   # If group id is integer type
@@ -211,7 +211,7 @@ async def channelgroupRemover(bot:Update, msg:Message):
                     if document[groupID][1] == msg.chat.id: # If group id, channel id is removing by one who added
                         collection_ID.delete_one(document)
                         await msg.reply_text(
-                            "<b>Your Channel ID & Group ID has now been Deleted😢 from our Database.\nYou can add them again by using <code>/add GroupID ChannelID</code>.</b>",
+                            "<b>Your Channel ID & Group ID has now been Deleted😢 from our Database.</b>\n\nYou can add them again by using <code>/add GroupID ChannelID</code>.",
                             parse_mode = "html"
                         )
                     else:   # If group id, channel id is not removing by one who added
@@ -222,18 +222,18 @@ async def channelgroupRemover(bot:Update, msg:Message):
                     break
             else:   # If group id not found in database
                 await msg.reply_text(
-                    "<b>Given Group ID is not found in our Database🤔.\n\n😊Join @AJPyroVerse & @AJPyroVerseGroup for getting more awesome 🤖bots like this.</b>",
+                    "<b>Given Group ID is not found in our Database🤔</b></b>",
                     parse_mode = "html"
                 )
     else:   # If command is invalid
         await msg.reply_text(
-            "<b>Invalid Command😒\nUse <code>/remove GroupID</code></b>.",
+            "<b>Invalid Command😒</b>\n\nSend command in this format👇\n<code>/remove GroupID</code>",
             parse_mode = "html"
         )
     return
 
 # #request handler
-@app.on_message(filters.group & filters.regex(requestRegex + "(.*)"))
+@app.on_message(filters.group & ~filters.edited & filters.regex(requestRegex + "(.*)"))
 async def requestHandler(bot:Update, msg:Message):
     groupID = str(msg.chat.id)
 
@@ -247,7 +247,7 @@ async def requestHandler(bot:Update, msg:Message):
             channelID = document[groupID][0]
             fromUser = msg.from_user
             mentionUser = f"<a href='tg://user?id={fromUser.id}'>{fromUser.first_name}</a>"
-            requestText = f"<b>Request by {mentionUser}\n\n{msg.text}</b>"
+            requestText = f"<b>🔰Request by {mentionUser}</b>\n\n{msg.text}"
             originalMSG = msg.text
             findRegexStr = match(requestRegex, originalMSG)
             requestString = findRegexStr.group()
@@ -268,23 +268,23 @@ async def requestHandler(bot:Update, msg:Message):
                     [
                         [
                             InlineKeyboardButton(
-                                "Requested Message",
+                                "💬 Requested Message",
                                 url = f"https://t.me/c/{groupIDPro}/{msg.message_id}"
                             )
                         ],
                         [
                             InlineKeyboardButton(
-                                "🚫Reject",
+                                "🚫 Reject",
                                 "reject"
                             ),
                             InlineKeyboardButton(
-                                "Done✅",
+                                "Done ✅",
                                 "done"
                             )
                         ],
                         [
                             InlineKeyboardButton(
-                                "⚠️Unavailable⚠️",
+                                "⚠️ Unavailable ⚠️",
                                 "unavailable"
                             )
                         ]
@@ -292,7 +292,7 @@ async def requestHandler(bot:Update, msg:Message):
                 )
             )
 
-            replyText = f"<b>👋 Hello {mentionUser} !!\n\n📍 Your Request for {contentRequested} has been submitted to the admins.\n\n🚀 Your Request Will Be Uploaded soon.\n📌 Please Note that Admins might be busy. So, this may take more time.\n\n👇 See Your Request Status Here 👇</b>"
+            replyText = f"<b>👋 Hello {mentionUser} !!\n\n📍 Your Request👇\n<code>{contentRequested}</code>\nhas been submitted to the admins.</b>\n\nNow wait for admins to verify and update your request(s).\n\nYou can check your Request Status Here 👇"
 
             # Sending message for user in group
             await msg.reply_text(
@@ -303,7 +303,7 @@ async def requestHandler(bot:Update, msg:Message):
                     [
                         [
                             InlineKeyboardButton(
-                                "⏳Request Status⏳",
+                                "⏳ Request Status ⏳",
                                 url = f"https://t.me/c/{channelIDPro}/{requestMSG.message_id}"
                             )
                         ]
@@ -332,33 +332,33 @@ async def callBackButton(bot:Update, callback_query:CallbackQuery):
                     data = callback_query.data  # Callback Data
                     if data == "rejected":
                         return await callback_query.answer(
-                            "This request is rejected💔...\nAsk admins in group for more info💔",
+                            "This request has been rejected.\nAsk admins in group for more info.",
                             show_alert = True
                         )
                     elif data == "completed":
                         return await callback_query.answer(
-                            "This request Is Completed🥳...\nCheckout in Channel😊",
+                            "This request has been Completed 🥳",
                             show_alert = True
                         )
                     user = await bot.get_chat_member(int(channelID), callback_query.from_user.id)
                     if user.status not in ("administrator", "creator"): # If accepting, rejecting request tried to be done by neither admin nor owner
                         await callback_query.answer(
-                            "Who the hell are you?\nYour are not Admin😒.",
+                            "Who the hell are you?\nYour are not an Admin😒.",
                             show_alert = True
                         )
                     else:   # If accepting, rejecting request tried to be done by either admin or owner
                         if data == "reject":
                             result = "REJECTED"
-                            groupResult = "has been Rejected💔."
-                            button = InlineKeyboardButton("Request Rejected🚫", "rejected")
+                            groupResult = "has been Rejected 💔"
+                            button = InlineKeyboardButton("Request Rejected 🚫", "rejected")
                         elif data == "done":
                             result = "COMPLETED"
-                            groupResult = "is Completed🥳."
+                            groupResult = "has been Completed 🥳"
                             button = InlineKeyboardButton("Request Completed✅", "completed")
                         elif data == "unavailable":
                             result = "UNAVAILABLE"
-                            groupResult = "has been rejected💔 due to Unavailablity🥲."
-                            button = InlineKeyboardButton("Request Rejected🚫", "rejected")
+                            groupResult = "is not available currently 🥲"
+                            button = InlineKeyboardButton("Request unavailable 🚫", "rejected")
 
                         msg = callback_query.message
                         userid = 12345678
@@ -390,7 +390,7 @@ async def callBackButton(bot:Update, callback_query:CallbackQuery):
                         )
 
                         # Result of request sent to group
-                        replyText = f"<b>Dear {mentionUser}🧑\nYour request for {contentRequested} {groupResult}\n👍Thanks for requesting!</b>"
+                        replyText = f"<b>Dear {mentionUser} !!</b>\n\nYour request for\n<code>{contentRequested}</code>\n <b>{groupResult}</b>\n\nJoin @UllasTV for more updates!"
                         await bot.send_message(
                             int(groupID),
                             replyText,
