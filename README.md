@@ -7,9 +7,6 @@ This is not my Original Repo. I have customized from https://github.com/AJTimePy
 
 This is a Request Tracker Bot repo, It is for those who upload content like movies, anime, etc. It can be used for tracking request of content that your members asked for.
 
-The owner of this bot is [AJTimePyro](https://t.me/AJTimePyro), His Telegram [Channel](http://t.me/AJPyroVerse) & [Group](http://t.me/AJPyroVerseGroup).
-Don't Forget to give a Star.
-
 ## Some ScreenShots
 These ScreenShots might help you to understand this bot well.
 ![](https://raw.githubusercontent.com/AJTimePyro/RequestTrackerBot/master/resources/1.jpg)
@@ -36,9 +33,9 @@ These ScreenShots might help you to understand this bot well.
 ## Direct Deploy
 Click Below Button to Deploy your Bot.
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/AJTimePyro/RequestBot)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/byomkesh462/TG-Request-Tracket)
 
-[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template?template=https%3A%2F%2Fgithub.com%2FAJTimePyro%2FRequestTrackerBot&envs=API_ID%2CAPI_HASH%2CBOT_TOKEN%2CMONGO_STR&API_IDDesc=+Get+both+from+https%3A%2F%2Fmy.telegram.org&API_HASHDesc=+Get+both+from+https%3A%2F%2Fmy.telegram.org&BOT_TOKENDesc=Get+easily+from+https%3A%2F%2Ft.me%2FBotFather&MONGO_STRDesc=Get+From+MongoDB+Atlas)
+[![Deploy on Railway(Not Updated)](https://railway.app/button.svg)](https://railway.app/new/template?template=https%3A%2F%2Fgithub.com%2FAJTimePyro%2FRequestTrackerBot&envs=API_ID%2CAPI_HASH%2CBOT_TOKEN%2CMONGO_STR&API_IDDesc=+Get+both+from+https%3A%2F%2Fmy.telegram.org&API_HASHDesc=+Get+both+from+https%3A%2F%2Fmy.telegram.org&BOT_TOKENDesc=Get+easily+from+https%3A%2F%2Ft.me%2FBotFather&MONGO_STRDesc=Get+From+MongoDB+Atlas)
 
 ## How to use?
 1. Deploy your Bot on Heroku
@@ -48,7 +45,7 @@ Click Below Button to Deploy your Bot.
 5. Now any user of group can request for content by using #request Keyword.
 
 ## Support Telegram Group and Channel
-
+Original Repo 👉 https://github.com/AJTimePyro/RequestTrackerBot
 <a href="http://t.me/AJPyroVerse"><img src="https://smartiblogster.com/wp-content/uploads/2021/03/smartiblogster-iblogster-join-telegram-channel.png" style="width: 300px; height: 100px"></a>
 
 <a href="http://t.me/AJPyroVerseGroup"><img src="https://www.pngitem.com/pimgs/m/214-2144731_groups-on-telegram-telegram-group-link-png-transparent.png" style="width: 280px; height: 80px"></a>
