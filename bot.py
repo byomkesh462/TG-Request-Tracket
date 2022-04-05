@@ -362,6 +362,7 @@ async def callBackButton(bot:Update, callback_query:CallbackQuery):
 
                         msg = callback_query.message
                         userid = 12345678
+                        userfirstname = 'No Name'
                         for m in msg.entities:
                             if m.type == "text_mention":
                                 userid = m.user.id
