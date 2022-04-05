@@ -362,7 +362,7 @@ async def callBackButton(bot:Update, callback_query:CallbackQuery):
 
                         msg = callback_query.message
                         userid = 12345678
-                        userfirstname = msg.from_user.first_name
+                        userfirstname = 'No Name'
                         for m in msg.entities:
                             if m.type == "text_mention":
                                 userid = m.user.id
@@ -371,8 +371,9 @@ async def callBackButton(bot:Update, callback_query:CallbackQuery):
                         findRegexStr = search(requestRegex, originalMsg)
                         requestString = findRegexStr.group()
                         contentRequested = originalMsg.split(requestString)[1]
-                        requestedBy = originalMsg.removeprefix("Request by ").split('\n\n')[0]
-                        messageId = originalMsg.split(' ||')[0]
+                        messageId = originalMsg.split(' || ')[0]
+                        reqMsg = originalMsg.split(' || ')[1]
+                        requestedBy = reqMsg.removeprefix("Request by ").split('\n\n')[0]
                         groupIDPro = groupID.removeprefix(str(-100))
                         mentionUser = f"<a href='tg://user?id={userid}'>{requestedBy}</a>"
                         mentionUserNew = f"<a href='tg://user?id={userid}'>{userfirstname}</a>"
@@ -399,7 +400,7 @@ async def callBackButton(bot:Update, callback_query:CallbackQuery):
                         )
 
                         # Result of request sent to group
-                        replyText = f"<b>Dear {mentionUserNew}!!</b>\n\nYour request for\n<code>{contentRequested}</code>\n <b>{groupResult}</b>\n\nJoin @UllasTV for more updates!"
+                        replyText = f"<b>Dear {mentionUser}!!</b>\n\nYour request for\n<code>{contentRequested}</code>\n <b>{groupResult}</b>\n\nJoin @UllasTV for more updates!"
                         await bot.send_message(
                             int(groupID),
                             replyText,
