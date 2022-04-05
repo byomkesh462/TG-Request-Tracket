@@ -366,7 +366,7 @@ async def callBackButton(bot:Update, callback_query:CallbackQuery):
                         for m in msg.entities:
                             if m.type == "text_mention":
                                 userid = m.user.id
-                                userfirstname= m.user.first_name
+                                userfirstname= f'{m.user.first_name}'
                         originalMsg = msg.text
                         findRegexStr = search(requestRegex, originalMsg)
                         requestString = findRegexStr.group()
